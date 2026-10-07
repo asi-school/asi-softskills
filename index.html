@@ -1,55 +1,320 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<script>(function(){function fmt(a){if(a instanceof Error)return a.message;if(typeof a==="object"&&a!==null){try{return JSON.stringify(a)}catch(e){return String(a)}}return String(a)}function send(t,m,l){try{parent.postMessage({__stc:1,type:t,msg:m,line:l},"*")}catch(e){}}["log","info","warn","error"].forEach(function(m){var o=console[m];console[m]=function(){send(m,Array.prototype.map.call(arguments,fmt).join(" "));if(o)o.apply(console,arguments)}});window.addEventListener("error",function(e){send("error",e.message,e.lineno)});window.addEventListener("unhandledrejection",function(e){send("error","Promise: "+fmt(e.reason))});})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Домашнее задание · Мягкие навыки · АСИ</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#0b0f12; font-family:'Segoe UI','Inter',system-ui,sans-serif; color:#e3f0f2; min-height:100vh; padding:24px 16px 140px; display:flex; justify-content:center; }
+  body {
+    background:#0b0f12;
+    font-family:'Segoe UI','Inter',system-ui,sans-serif;
+    color:#e3f0f2;
+    min-height:100vh;
+    padding:24px 16px 140px;
+    display:flex;
+    justify-content:center;
+  }
   .app { max-width:880px; width:100%; }
-  .app-header { background:linear-gradient(135deg,#0f1e22 0%,#0c1a1e 100%); border:1px solid #1e4a50; border-radius:24px; padding:28px 32px; margin-bottom:22px; position:relative; overflow:hidden; }
-  .app-header::before { content:''; position:absolute; top:-80px; right:-80px; width:260px; height:260px; background:radial-gradient(circle,rgba(58,209,217,0.18) 0%,transparent 70%); border-radius:50%; }
-  .app-header h1 { font-size:1.9rem; font-weight:700; margin-bottom:6px; position:relative; }
+  .app-header {
+    background:linear-gradient(135deg,#0f1e22 0%,#0c1a1e 100%);
+    border:1px solid #1e4a50;
+    border-radius:24px;
+    padding:28px 32px;
+    margin-bottom:22px;
+    position:relative;
+    overflow:hidden;
+  }
+  .app-header::before {
+    content:'';
+    position:absolute;
+    top:-80px; right:-80px;
+    width:260px; height:260px;
+    background:radial-gradient(circle,rgba(58,209,217,0.18) 0%,transparent 70%);
+    border-radius:50%;
+  }
+  .app-header h1 {
+    font-size:1.9rem;
+    font-weight:700;
+    margin-bottom:6px;
+    position:relative;
+  }
   .app-header h1 span { color:#3ad1d9; }
-  .app-header p { color:#9bb8bd; font-size:0.95rem; position:relative; }
-  .progress-wrap { background:#0f1f24; border:1px solid #1d464d; border-radius:16px; padding:16px 22px; margin-bottom:22px; display:flex; align-items:center; gap:16px; }
-  .progress-text { font-size:0.85rem; font-weight:600; color:#3ad1d9; white-space:nowrap; letter-spacing:0.5px; }
-  .progress-bar { flex:1; height:10px; background:#0a1519; border-radius:10px; overflow:hidden; }
-  .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,#2aa9b0 0%,#3ad1d9 100%); border-radius:10px; transition:width 0.4s ease; }
-  .progress-percent { font-weight:700; color:#3ad1d9; font-size:0.95rem; min-width:48px; text-align:right; }
-  .card { background:rgba(13,25,30,0.7); border:1px solid #1e3f45; border-radius:22px; padding:28px 30px; margin-bottom:20px; }
-  .card-tag { display:inline-block; background:#1a3a40; color:#3ad1d9; font-weight:700; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:14px; border:1px solid #2a6b72; }
-  .card h2 { font-size:1.4rem; color:#fff; margin-bottom:12px; font-weight:700; }
+  .app-header p {
+    color:#9bb8bd;
+    font-size:0.95rem;
+    position:relative;
+  }
+  .progress-wrap {
+    background:#0f1f24;
+    border:1px solid #1d464d;
+    border-radius:16px;
+    padding:16px 22px;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .progress-text {
+    font-size:0.85rem;
+    font-weight:600;
+    color:#3ad1d9;
+    white-space:nowrap;
+    letter-spacing:0.5px;
+  }
+  .progress-bar {
+    flex:1;
+    height:10px;
+    background:#0a1519;
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .progress-fill {
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#2aa9b0 0%,#3ad1d9 100%);
+    border-radius:10px;
+    transition:width 0.4s ease;
+  }
+  .progress-percent {
+    font-weight:700;
+    color:#3ad1d9;
+    font-size:0.95rem;
+    min-width:48px;
+    text-align:right;
+  }
+  .card {
+    background:rgba(13,25,30,0.7);
+    border:1px solid #1e3f45;
+    border-radius:22px;
+    padding:28px 30px;
+    margin-bottom:20px;
+    transition:border-color 0.2s;
+  }
+  .card:hover { border-color:#2a7a82; }
+  .card-tag {
+    display:inline-block;
+    background:#1a3a40;
+    color:#3ad1d9;
+    font-weight:700;
+    font-size:0.75rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    padding:5px 14px;
+    border-radius:20px;
+    margin-bottom:14px;
+    border:1px solid #2a6b72;
+  }
+  .card h2 {
+    font-size:1.4rem;
+    color:#fff;
+    margin-bottom:12px;
+    font-weight:700;
+  }
   .card h2 .accent { color:#3ad1d9; }
-  .card p.desc { color:#bdd6da; font-size:0.98rem; line-height:1.6; margin-bottom:18px; }
+  .card p.desc {
+    color:#bdd6da;
+    font-size:0.98rem;
+    line-height:1.6;
+    margin-bottom:18px;
+  }
   .input-group { margin-bottom:16px; }
-  .input-group label { display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#6f9ca3; font-weight:600; margin-bottom:6px; }
-  .input-group input[type="text"], .input-group textarea, .input-group select { width:100%; background:#0a1519; border:1.5px solid #1e4a50; border-radius:12px; padding:12px 16px; color:#e3f0f2; font-size:1rem; font-family:inherit; outline:none; }
-  .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color:#3ad1d9; box-shadow:0 0 0 3px rgba(58,209,217,0.15); }
-  .input-group textarea { resize:vertical; min-height:80px; }
+  .input-group label {
+    display:block;
+    font-size:0.8rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:#6f9ca3;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .input-group input[type="text"],
+  .input-group textarea,
+  .input-group select {
+    width:100%;
+    background:#0a1519;
+    border:1.5px solid #1e4a50;
+    border-radius:12px;
+    padding:12px 16px;
+    color:#e3f0f2;
+    font-size:1rem;
+    font-family:inherit;
+    transition:border-color 0.2s;
+    outline:none;
+  }
+  .input-group input:focus,
+  .input-group textarea:focus,
+  .input-group select:focus {
+    border-color:#3ad1d9;
+    box-shadow:0 0 0 3px rgba(58,209,217,0.15);
+  }
+  .input-group textarea {
+    resize:vertical;
+    min-height:80px;
+  }
   .skills-list { display:grid; gap:10px; }
-  .skill-row { display:flex; align-items:center; gap:14px; background:#0e1c21; border:1px solid #1c3d42; border-radius:14px; padding:12px 16px; flex-wrap:wrap; }
-  .skill-name { flex:1; font-weight:600; color:#fff; font-size:0.95rem; min-width:160px; }
+  .skill-row {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:#0e1c21;
+    border:1px solid #1c3d42;
+    border-radius:14px;
+    padding:12px 16px;
+    flex-wrap:wrap;
+  }
+  .skill-name {
+    flex:1;
+    font-weight:600;
+    color:#fff;
+    font-size:0.95rem;
+    min-width:160px;
+  }
   .rating { display:flex; gap:6px; }
-  .rating button { width:38px; height:38px; border-radius:10px; border:1.5px solid #1e4a50; background:#0a1519; color:#6f9ca3; font-weight:700; font-size:0.95rem; cursor:pointer; font-family:inherit; }
-  .rating button.active { background:linear-gradient(135deg,#2aa9b0,#3ad1d9); border-color:#3ad1d9; color:#0b0f12; }
-  .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg,#2aa9b0,#3ad1d9); color:#0b0f12; border:none; border-radius:60px; padding:14px 30px; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; }
-  .btn.secondary { background:transparent; color:#3ad1d9; border:1.5px solid #2a7a82; }
-  .bottom-bar { position:fixed; bottom:0; left:0; right:0; background:rgba(11,15,18,0.95); backdrop-filter:blur(12px); border-top:1px solid #1e4a50; padding:16px 24px; display:flex; justify-content:center; gap:14px; z-index:100; flex-wrap:wrap; }
-  .bottom-bar .btn { padding:12px 26px; font-size:0.95rem; }
-  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; padding:20px; z-index:200; }
+  .rating button {
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1.5px solid #1e4a50;
+    background:#0a1519;
+    color:#6f9ca3;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:all 0.15s;
+    font-family:inherit;
+  }
+  .rating button:hover {
+    border-color:#2a7a82;
+    color:#bdd6da;
+  }
+  .rating button.active {
+    background:linear-gradient(135deg,#2aa9b0,#3ad1d9);
+    border-color:#3ad1d9;
+    color:#0b0f12;
+    box-shadow:0 4px 12px rgba(58,209,217,0.35);
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:linear-gradient(135deg,#2aa9b0,#3ad1d9);
+    color:#0b0f12;
+    border:none;
+    border-radius:60px;
+    padding:14px 30px;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:inherit;
+    letter-spacing:0.3px;
+    box-shadow:0 8px 24px rgba(42,169,176,0.35);
+  }
+  .btn:hover {
+    transform:translateY(-2px);
+    box-shadow:0 12px 32px rgba(58,209,217,0.5);
+  }
+  .btn:disabled {
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+  }
+  .btn.secondary {
+    background:transparent;
+    color:#3ad1d9;
+    border:1.5px solid #2a7a82;
+    box-shadow:none;
+  }
+  .btn.secondary:hover {
+    background:#122b31;
+    border-color:#3ad1d9;
+  }
+  .bottom-bar {
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:rgba(11,15,18,0.95);
+    backdrop-filter:blur(12px);
+    border-top:1px solid #1e4a50;
+    padding:16px 24px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    z-index:100;
+    flex-wrap:wrap;
+  }
+  .bottom-bar .btn {
+    padding:12px 26px;
+    font-size:0.95rem;
+  }
+  .modal-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:200;
+  }
   .modal-overlay.show { display:flex; }
-  .modal { background:#0d1418; border:1px solid #2aa9b0; border-radius:24px; padding:32px; max-width:620px; width:100%; max-height:85vh; overflow-y:auto; }
-  .modal h3 { color:#3ad1d9; font-size:1.4rem; margin-bottom:14px; }
-  .modal p { color:#bdd6da; margin-bottom:16px; }
-  .modal textarea { width:100%; min-height:220px; background:#0a1519; border:1.5px solid #1e4a50; border-radius:12px; padding:14px; color:#e3f0f2; font-family:monospace; font-size:0.85rem; }
-  .modal-actions { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+  .modal {
+    background:#0d1418;
+    border:1px solid #2aa9b0;
+    border-radius:24px;
+    padding:32px;
+    max-width:620px;
+    width:100%;
+    max-height:85vh;
+    overflow-y:auto;
+  }
+  .modal h3 {
+    color:#3ad1d9;
+    font-size:1.4rem;
+    margin-bottom:14px;
+  }
+  .modal p {
+    color:#bdd6da;
+    margin-bottom:16px;
+    line-height:1.5;
+  }
+  .modal textarea {
+    width:100%;
+    min-height:220px;
+    background:#0a1519;
+    border:1.5px solid #1e4a50;
+    border-radius:12px;
+    padding:14px;
+    color:#e3f0f2;
+    font-family:'Consolas','Monaco',monospace;
+    font-size:0.85rem;
+    line-height:1.5;
+    resize:vertical;
+    outline:none;
+  }
+  .modal textarea:focus { border-color:#3ad1d9; }
+  .modal-actions {
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+    flex-wrap:wrap;
+  }
+  @media (max-width:600px) {
+    .app-header { padding:22px 20px; }
+    .app-header h1 { font-size:1.4rem; }
+    .card { padding:22px 18px; }
+    .rating button { width:34px; height:34px; font-size:0.85rem; }
+    .bottom-bar { padding:12px 14px; }
+    .bottom-bar .btn { padding:10px 18px; font-size:0.85rem; }
+  }
 </style>
 </head>
 <body>
-<div class="app">
+
+<div class="app" id="app">
+
   <div class="app-header">
     <h1>ДОМАШНЕЕ <span>ЗАДАНИЕ</span></h1>
     <p>Мягкие навыки (soft skills) · Ассоциация Студенческих Инициатив · Занятие 1</p>
@@ -61,49 +326,79 @@
     <div class="progress-percent" id="progressPercent">0%</div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-reg">
     <div class="card-tag">Шаг 0</div>
     <h2>👤 <span class="accent">Регистрация</span></h2>
-    <p class="desc">Заполни данные, чтобы куратор видел, кто выполнил задание.</p>
-    <div class="input-group"><label>Фамилия и имя *</label><input type="text" id="regName" placeholder="Иванова Мария"></div>
-    <div class="input-group"><label>Группа / направление *</label><input type="text" id="regGroup" placeholder="ИС-21 / АСИ-1"></div>
-    <div class="input-group"><label>Контакт для связи (Telegram / VK)</label><input type="text" id="regContact" placeholder="@username"></div>
+    <p class="desc">Заполни свои данные, чтобы куратор знал, кто выполнил задание.</p>
+    <div class="input-group">
+      <label>Фамилия и имя *</label>
+      <input type="text" id="regName" placeholder="Например: Иванова Мария" required>
+    </div>
+    <div class="input-group">
+      <label>Группа / направление *</label>
+      <input type="text" id="regGroup" placeholder="Например: 26М-МГО11" required>
+    </div>
+    <div class="input-group">
+      <label>Контакт для связи (Telegram / VK / телефон)</label>
+      <input type="text" id="regContact" placeholder="@username или ссылка">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-task1">
     <div class="card-tag">Задание 1</div>
     <h2>🔍 Самодиагностика: <span class="accent">«Мои мягкие навыки (soft skills)»</span></h2>
     <p class="desc">Оцени каждый навык от 1 до 5. Затем выбери два самых сильных и два, которые хочешь развить.</p>
     <div class="skills-list" id="skillsList"></div>
-    <div class="input-group" style="margin-top:22px;"><label>💪 Мои сильные навыки (2 шт.)</label><input type="text" id="strongSkills"></div>
-    <div class="input-group"><label>🌱 Навыки, которые хочу развить (2 шт.)</label><input type="text" id="weakSkills"></div>
+    <div class="input-group" style="margin-top:22px;">
+      <label>💪 Мои сильные навыки (2 шт.)</label>
+      <input type="text" id="strongSkills" placeholder="Например: Коммуникация, Решение проблем">
+    </div>
+    <div class="input-group">
+      <label>🌱 Навыки, которые хочу развить (2 шт.)</label>
+      <input type="text" id="weakSkills" placeholder="Например: Стрессоустойчивость, Гибкость">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-task2">
     <div class="card-tag">Задание 2</div>
     <h2>🗺️ План развития: <span class="accent">«Как я буду прокачиваться»</span></h2>
-    <div class="input-group"><label>Мой навык для развития</label><input type="text" id="planSkill"></div>
-    <div class="input-group"><label>🎯 Конкретная цель</label><input type="text" id="planGoal"></div>
-    <div class="input-group"><label>📅 Срок</label><input type="text" id="planDeadline"></div>
-    <div class="input-group"><label>⚙️ Действия (3–5 шагов)</label><textarea id="planSteps"></textarea></div>
-    <div class="input-group"><label>📊 Результат</label><input type="text" id="planResult"></div>
+    <p class="desc">Выбери один навык из тех, что хочешь развить, и составь SMART-план на месяц.</p>
+    <div class="input-group">
+      <label>Мой навык для развития</label>
+      <input type="text" id="planSkill" placeholder="Например: Гибкость">
+    </div>
+    <div class="input-group">
+      <label>🎯 Конкретная цель</label>
+      <input type="text" id="planGoal" placeholder="Что именно я хочу улучшить?">
+    </div>
+    <div class="input-group">
+      <label>📅 Срок</label>
+      <input type="text" id="planDeadline" placeholder="Когда я это сделаю?">
+    </div>
+    <div class="input-group">
+      <label>⚙️ Действия (3–5 шагов)</label>
+      <textarea id="planSteps" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+    </div>
+    <div class="input-group">
+      <label>📊 Результат — как пойму, что получилось?</label>
+      <input type="text" id="planResult" placeholder="Например: смогу уверенно выступать без подготовки">
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-task3">
     <div class="card-tag">Задание 3</div>
     <h2>🎨 Сторителлинг: <span class="accent">«История про мой навык»</span></h2>
-    <div class="input-group"><label>Мой навык</label><input type="text" id="storySkill"></div>
-    <div class="input-group"><label>История</label><textarea id="storyText" style="min-height:130px;"></textarea></div>
+    <p class="desc">Опиши одну реальную ситуацию, где твой сильный soft skill тебе помог. 5–7 предложений.</p>
+    <div class="input-group">
+      <label>Мой навык</label>
+      <input type="text" id="storySkill" placeholder="Например: Эмоциональный интеллект">
+    </div>
+    <div class="input-group">
+      <label>История</label>
+      <textarea id="storyText" placeholder="Однажды..." style="min-height:130px;"></textarea>
+    </div>
   </div>
 
-  <div class="card">
-    <div class="card-tag">Бонус</div>
-    <h2>🧠 4К-компетенции: <span class="accent">проверь себя</span></h2>
-    <div class="input-group"><label>Компетенция</label>
-      <select id="fourK"><option value="">— выбери —</option><option>💡 Креативность</option><option>🧐 Критическое мышление</option><option>🗣️ Коммуникация</option><option>🤲 Кооперация</option></select>
-    </div>
-    <div class="input-group"><label>Почему?</label><textarea id="fourKWhy"></textarea></div>
-  </div>
 </div>
 
 <div class="bottom-bar">
@@ -114,7 +409,7 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h3>✅ Готово! Скопируй и отправь куратору</h3>
-    <p>Ниже — твои ответы. Скопируй текст и отправь куратору в Telegram / VK.</p>
+    <p>Ниже — твои ответы в удобном формате. Скопируй текст и отправь его куратору в Telegram / VK / на почту.</p>
     <textarea id="resultText" readonly></textarea>
     <div class="modal-actions">
       <button class="btn" onclick="copyResult()">📋 Скопировать</button>
@@ -135,28 +430,44 @@ const SKILLS = [
   { id:'stress', name:'🛡️ Стрессоустойчивость' },
   { id:'reflex', name:'🪞 Саморефлексия' }
 ];
-let state = { ratings:{}, reg:{name:'',group:'',contact:''}, task1:{strong:'',weak:''}, task2:{skill:'',goal:'',deadline:'',steps:'',result:''}, task3:{skill:'',story:''}, bonus:{fourK:'',why:''} };
 
-function renderSkills(){
-  const c = document.getElementById('skillsList'); c.innerHTML='';
-  SKILLS.forEach(s => {
-    const row = document.createElement('div'); row.className='skill-row';
-    row.innerHTML = `<div class="skill-name">${s.name}</div><div class="rating" data-skill="${s.id}">${[1,2,3,4,5].map(n=>`<button type="button" data-val="${n}">${n}</button>`).join('')}</div>`;
-    c.appendChild(row);
+let state = {
+  ratings: {},
+  reg: { name:'', group:'', contact:'' },
+  task1: { strong:'', weak:'' },
+  task2: { skill:'', goal:'', deadline:'', steps:'', result:'' },
+  task3: { skill:'', story:'' }
+};
+
+function renderSkills() {
+  const container = document.getElementById('skillsList');
+  container.innerHTML = '';
+  SKILLS.forEach(skill => {
+    const row = document.createElement('div');
+    row.className = 'skill-row';
+    row.innerHTML = `
+      <div class="skill-name">${skill.name}</div>
+      <div class="rating" data-skill="${skill.id}">
+        ${[1,2,3,4,5].map(n => `<button type="button" data-val="${n}">${n}</button>`).join('')}
+      </div>
+    `;
+    container.appendChild(row);
   });
-  c.querySelectorAll('.rating').forEach(r => {
-    const sid = r.dataset.skill;
-    r.querySelectorAll('button').forEach(b => {
-      b.addEventListener('click', () => {
-        state.ratings[sid] = parseInt(b.dataset.val);
-        r.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
-        b.classList.add('active');
+  container.querySelectorAll('.rating').forEach(ratingEl => {
+    const skillId = ratingEl.dataset.skill;
+    ratingEl.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = parseInt(btn.dataset.val);
+        state.ratings[skillId] = val;
+        ratingEl.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         updateProgress();
       });
     });
   });
 }
-function collectData(){
+
+function collectData() {
   state.reg.name = document.getElementById('regName').value.trim();
   state.reg.group = document.getElementById('regGroup').value.trim();
   state.reg.contact = document.getElementById('regContact').value.trim();
@@ -169,42 +480,159 @@ function collectData(){
   state.task2.result = document.getElementById('planResult').value.trim();
   state.task3.skill = document.getElementById('storySkill').value.trim();
   state.task3.story = document.getElementById('storyText').value.trim();
-  state.bonus.fourK = document.getElementById('fourK').value;
-  state.bonus.why = document.getElementById('fourKWhy').value.trim();
 }
-function updateProgress(){
-  collectData();
-  let filled=0,total=0;
-  total+=3; if(state.reg.name)filled++; if(state.reg.group)filled++; if(state.reg.contact)filled++;
-  total+=SKILLS.length; SKILLS.forEach(s=>{if(state.ratings[s.id])filled++;});
-  total+=2; if(state.task1.strong)filled++; if(state.task1.weak)filled++;
-  total+=5; if(state.task2.skill)filled++; if(state.task2.goal)filled++; if(state.task2.deadline)filled++; if(state.task2.steps)filled++; if(state.task2.result)filled++;
-  total+=2; if(state.task3.skill)filled++; if(state.task3.story)filled++;
-  total+=2; if(state.bonus.fourK)filled++; if(state.bonus.why)filled++;
-  const p=Math.round((filled/total)*100);
-  document.getElementById('progressFill').style.width=p+'%';
-  document.getElementById('progressPercent').textContent=p+'%';
+
+function restoreData() {
+  document.getElementById('regName').value = state.reg.name || '';
+  document.getElementById('regGroup').value = state.reg.group || '';
+  document.getElementById('regContact').value = state.reg.contact || '';
+  document.getElementById('strongSkills').value = state.task1.strong || '';
+  document.getElementById('weakSkills').value = state.task1.weak || '';
+  document.getElementById('planSkill').value = state.task2.skill || '';
+  document.getElementById('planGoal').value = state.task2.goal || '';
+  document.getElementById('planDeadline').value = state.task2.deadline || '';
+  document.getElementById('planSteps').value = state.task2.steps || '';
+  document.getElementById('planResult').value = state.task2.result || '';
+  document.getElementById('storySkill').value = state.task3.skill || '';
+  document.getElementById('storyText').value = state.task3.story || '';
+  Object.keys(state.ratings).forEach(skillId => {
+    const ratingEl = document.querySelector(`.rating[data-skill="${skillId}"]`);
+    if (ratingEl) {
+      const val = state.ratings[skillId];
+      ratingEl.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.val) === val);
+      });
+    }
+  });
 }
-function saveDraft(){ collectData(); localStorage.setItem('asi_draft',JSON.stringify(state)); alert('✅ Черновик сохранён'); }
-function loadDraft(){ const s=localStorage.getItem('asi_draft'); if(s){try{state=JSON.parse(s);}catch(e){}} }
-function submitAll(){
+
+function updateProgress() {
   collectData();
-  if(!state.reg.name||!state.reg.group){alert('⚠️ Заполни имя и группу');return;}
-  const missing=SKILLS.filter(s=>!state.ratings[s.id]);
-  if(missing.length>0){alert('⚠️ Оцени все навыки');return;}
-  const ratingsText = SKILLS.map(s=>`  • ${s.name}: ${state.ratings[s.id]}/5`).join('\n');
-  const text = `📋 ДЗ · МЯГКИЕ НАВЫКИ (SOFT SKILLS) · АСИ\n━━━━━━━━━━━━━━━\n👤 Имя: ${state.reg.name}\n🏫 Группа: ${state.reg.group}\n📞 Контакт: ${state.reg.contact||'—'}\n🕒 ${new Date().toLocaleString('ru-RU')}\n━━━━━━━━━━━━━━━\n\n🔍 ЗАДАНИЕ 1\n${ratingsText}\n\n💪 Сильные: ${state.task1.strong||'—'}\n🌱 Хочу развить: ${state.task1.weak||'—'}\n\n━━━━━━━━━━━━━━━\n🗺️ ЗАДАНИЕ 2\nНавык: ${state.task2.skill||'—'}\n🎯 Цель: ${state.task2.goal||'—'}\n📅 Срок: ${state.task2.deadline||'—'}\n⚙️ Шаги:\n${state.task2.steps||'—'}\n📊 Результат: ${state.task2.result||'—'}\n\n━━━━━━━━━━━━━━━\n🎨 ЗАДАНИЕ 3\nНавык: ${state.task3.skill||'—'}\nИстория: ${state.task3.story||'—'}\n\n━━━━━━━━━━━━━━━\n🧠 БОНУС 4К\n${state.bonus.fourK||'—'}\nПочему: ${state.bonus.why||'—'}`;
+  let filled = 0;
+  let total = 0;
+  total += 3;
+  if (state.reg.name) filled++;
+  if (state.reg.group) filled++;
+  if (state.reg.contact) filled++;
+  total += SKILLS.length;
+  SKILLS.forEach(s => { if (state.ratings[s.id]) filled++; });
+  total += 2;
+  if (state.task1.strong) filled++;
+  if (state.task1.weak) filled++;
+  total += 5;
+  if (state.task2.skill) filled++;
+  if (state.task2.goal) filled++;
+  if (state.task2.deadline) filled++;
+  if (state.task2.steps) filled++;
+  if (state.task2.result) filled++;
+  total += 2;
+  if (state.task3.skill) filled++;
+  if (state.task3.story) filled++;
+  const percent = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressPercent').textContent = percent + '%';
+}
+
+function saveDraft() {
+  collectData();
+  localStorage.setItem('asi_homework_draft', JSON.stringify(state));
+  alert('✅ Черновик сохранён! Можешь вернуться позже — данные не потеряются.');
+}
+
+function loadDraft() {
+  const saved = localStorage.getItem('asi_homework_draft');
+  if (saved) {
+    try {
+      state = JSON.parse(saved);
+      restoreData();
+      updateProgress();
+    } catch(e) { console.warn('Ошибка загрузки черновика', e); }
+  }
+}
+
+function submitAll() {
+  collectData();
+  if (!state.reg.name || !state.reg.group) {
+    alert('⚠️ Пожалуйста, заполни имя и группу в блоке «Регистрация».');
+    document.getElementById('card-reg').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  const missingRatings = SKILLS.filter(s => !state.ratings[s.id]);
+  if (missingRatings.length > 0) {
+    alert('⚠️ Оцени все навыки в задании 1. Не хватает: ' + missingRatings.map(s=>s.name).join(', '));
+    document.getElementById('card-task1').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  const now = new Date();
+  const dateStr = now.toLocaleString('ru-RU');
+  const ratingsText = SKILLS.map(s => `  • ${s.name}: ${state.ratings[s.id]}/5`).join('\n');
+
+  const text = `📋 ДОМАШНЕЕ ЗАДАНИЕ · МЯГКИЕ НАВЫКИ (SOFT SKILLS) · АСИ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Имя: ${state.reg.name}
+🏫 Группа: ${state.reg.group}
+📞 Контакт: ${state.reg.contact || '—'}
+🕒 Дата отправки: ${dateStr}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 ЗАДАНИЕ 1. САМОДИАГНОСТИКА
+${ratingsText}
+
+💪 Сильные навыки: ${state.task1.strong || '—'}
+🌱 Хочу развить: ${state.task1.weak || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🗺️ ЗАДАНИЕ 2. ПЛАН РАЗВИТИЯ
+Навык: ${state.task2.skill || '—'}
+🎯 Цель: ${state.task2.goal || '—'}
+📅 Срок: ${state.task2.deadline || '—'}
+⚙️ Шаги:
+${state.task2.steps || '—'}
+📊 Результат: ${state.task2.result || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 ЗАДАНИЕ 3. СТОРИТЕЛЛИНГ
+Навык: ${state.task3.skill || '—'}
+История: ${state.task3.story || '—'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Отправлено из интерактивной среды АСИ`;
+
   document.getElementById('resultText').value = text;
   document.getElementById('modalOverlay').classList.add('show');
 }
-function copyResult(){ const ta=document.getElementById('resultText'); ta.select(); document.execCommand('copy'); alert('📋 Скопировано'); }
-function downloadResult(){ const text=document.getElementById('resultText').value; const blob=new Blob([text],{type:'text/plain;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='ДЗ_SoftSkills.txt'; a.click(); URL.revokeObjectURL(url); }
-function closeModal(){ document.getElementById('modalOverlay').classList.remove('show'); }
-document.addEventListener('DOMContentLoaded',()=>{
-  renderSkills(); loadDraft();
-  document.querySelectorAll('input, textarea, select').forEach(el=>{el.addEventListener('input',updateProgress);el.addEventListener('change',updateProgress);});
+
+function copyResult() {
+  const ta = document.getElementById('resultText');
+  ta.select();
+  document.execCommand('copy');
+  alert('📋 Скопировано! Вставь в сообщение куратору.');
+}
+
+function downloadResult() {
+  const text = document.getElementById('resultText').value;
+  const blob = new Blob([text], { type:'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ДЗ_SoftSkills_' + (state.reg.name || 'участник').replace(/\s+/g,'_') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderSkills();
+  loadDraft();
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', updateProgress);
+    el.addEventListener('change', updateProgress);
+  });
   updateProgress();
 });
 </script>
+
 </body>
 </html>
